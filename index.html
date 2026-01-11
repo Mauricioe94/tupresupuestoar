@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TuPresupuestoAR - Calculadora Profesional para Pintores</title>
+    <meta name="description" content="Calculadora de presupuestos para pintores en Argentina. Rangos actualizados de mano de obra por m² para CABA y GBA. Herramienta colaborativa para pintores profesionales.">
+    <meta name="keywords" content="pintores Argentina, presupuestos pintura, calcular presupuesto, mano de obra pintor, precios pintura CABA, precios pintura GBA">
+    <meta name="author" content="TuPresupuestoAR - Comunidad de Pintores">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="TuPresupuestoAR - Calculadora para Pintores">
+    <meta property="og:description" content="Herramienta colaborativa para calcular rangos de precios de pintura en Argentina">
+    <meta property="og:image" content="https://tupresupuesto.ar/img/og-image.jpg">
+    <meta property="og:url" content="https://tupresupuesto.ar">
+    <meta property="og:type" content="website">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="/Css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#2563eb">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "TuPresupuestoAR",
+        "description": "Calculadora de rangos de precios para pintores profesionales en Argentina",
+        "url": "https://tupresupuesto.ar",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Any",
+        "offers": {
+            "@type": "AggregateOffer",
+            "priceCurrency": "ARS",
+            "description": "Rangos de mano de obra para trabajos de pintura"
+        },
+        "author": {
+            "@type": "Organization",
+            "name": "Comunidad de Pintores Argentina"
+        }
+    }
+    </script>
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-spinner">
+            <i class="fas fa-paint-roller fa-spin"></i>
+            <p>Cargando herramienta...</p>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header" role="banner">
+        <div class="container header-container">
+            <div class="logo-container">
+                <a href="#hero" class="logo-link">
+                    <img src="/img/logo-pintura.png" alt="TuPresupuestoAR - Logo" class="site-logo" width="60" height="60">
+                    <div class="logo-text">
+                        <h1 class="logo-title">TuPresupuesto<span class="logo-highlight">AR</span></h1>
+                        <p class="logo-subtitle">Para pintores que saben lo que valen</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Desktop Navigation -->
+            <nav class="main-nav" aria-label="Navegación principal">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="#calculadora" class="nav-link active"><i class="fas fa-calculator"></i> Calculadora</a></li>
+                    <li class="nav-item"><a href="#tabla" class="nav-link"><i class="fas fa-table"></i> Tabla de Precios</a></li>
+                    <li class="nav-item"><a href="#historial" class="nav-link"><i class="fas fa-history"></i> Historial</a></li>
+                    <li class="nav-item"><a href="#info" class="nav-link"><i class="fas fa-info-circle"></i> Cómo Usar</a></li>
+                    <li class="nav-item"><button class="btn-theme" id="themeToggle" aria-label="Cambiar tema">
+                        <i class="fas fa-moon"></i>
+                    </button></li>
+                </ul>
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Abrir menú" aria-expanded="false">
+                <span class="menu-icon"></span>
+                <span class="menu-icon"></span>
+                <span class="menu-icon"></span>
+            </button>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <nav class="mobile-nav" id="mobileNav" aria-hidden="true">
+            <ul class="mobile-nav-list">
+                <li><a href="#calculadora" class="mobile-nav-link"><i class="fas fa-calculator"></i> Calculadora</a></li>
+                <li><a href="#tabla" class="mobile-nav-link"><i class="fas fa-table"></i> Tabla de Precios</a></li>
+                <li><a href="#historial" class="mobile-nav-link"><i class="fas fa-history"></i> Historial</a></li>
+                <li><a href="#info" class="mobile-nav-link"><i class="fas fa-info-circle"></i> Cómo Usar</a></li>
+                <li><button class="mobile-theme-btn" id="mobileThemeToggle"><i class="fas fa-moon"></i> Modo Oscuro</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section" aria-labelledby="hero-title">
+        <div class="container hero-container">
+            <div class="hero-content">
+                <div class="hero-badge">Herramienta 100% Gratuita</div>
+                <h1 id="hero-title" class="hero-title">Calculá tu <span class="highlight">presupuesto profesional</span> en segundos</h1>
+                <p class="hero-description">
+                    La única calculadora de <strong>mano de obra para pintores</strong> actualizada por la comunidad. Valores reales de CABA y GBA.
+                </p>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number" id="statUsers">850+</span>
+                        <span class="stat-label">Pintores activos</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number" id="statUpdates">24</span>
+                        <span class="stat-label">Actualizaciones/mes</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number" id="statAccuracy">95%</span>
+                        <span class="stat-label">Precisión</span>
+                    </div>
+                </div>
+                <a href="#calculadora" class="btn-hero" id="heroCta">
+                    <i class="fas fa-bolt"></i> COMENZAR AHORA
+                    <span class="btn-subtext">Sin registro, sin límites</span>
+                </a>
+            </div>
+            <div class="hero-visual">
+                <div class="visual-card">
+                    <div class="card-header">
+                        <div class="card-badge">Ejemplo Real</div>
+                        <h3>Pintura Interior 50m²</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="price-display">
+                            <span class="price-label">Rango estimado:</span>
+                            <span class="price-value">$600.000 - $900.000</span>
+                        </div>
+                        <div class="price-details">
+                            <span><i class="fas fa-map-marker-alt"></i> CABA</span>
+                            <span><i class="fas fa-clock"></i> Actualizado hoy</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculator Section -->
+    <section id="calculadora" class="calculator-section" aria-labelledby="calculator-title">
+        <div class="container">
+            <div class="section-header">
+                <h2 id="calculator-title" class="section-title">
+                    <i class="fas fa-calculator"></i>
+                    Calculadora Inteligente
+                </h2>
+                <p class="section-subtitle">Seguí los pasos y obtené tu rango de precios en menos de 30 segundos</p>
+            </div>
+
+            <div class="calculator-wizard">
+                <!-- Progress Steps -->
+                <div class="progress-steps">
+                    <div class="step-indicator active" data-step="1">
+                        <div class="step-number">1</div>
+                        <span class="step-label">Zona</span>
+                    </div>
+                    <div class="step-connector"></div>
+                    <div class="step-indicator" data-step="2">
+                        <div class="step-number">2</div>
+                        <span class="step-label">Trabajo</span>
+                    </div>
+                    <div class="step-connector"></div>
+                    <div class="step-indicator" data-step="3">
+                        <div class="step-number">3</div>
+                        <span class="step-label">Metros</span>
+                    </div>
+                    <div class="step-connector"></div>
+                    <div class="step-indicator" data-step="4">
+                        <div class="step-number">4</div>
+                        <span class="step-label">Resultado</span>
+                    </div>
+                </div>
+
+                <!-- Calculator Steps -->
+                <div class="calculator-steps">
+                    <!-- Step 1: Zone Selection -->
+                    <div class="calculator-step active" id="step1">
+                        <h3 class="step-title">¿En qué zona trabajás?</h3>
+                        <p class="step-description">Los precios varían según la ubicación</p>
+                        
+                        <div class="zone-selection">
+                            <div class="zone-card" data-zone="CABA">
+                                <div class="zone-icon">
+                                    <i class="fas fa-city"></i>
+                                </div>
+                                <div class="zone-content">
+                                    <h4>Ciudad de Buenos Aires</h4>
+                                    <p class="zone-desc">Capital Federal y barrios</p>
+                                    <div class="zone-price-range">
+                                        <span class="price-min">$12.000/m²</span>
+                                        <span class="price-sep">a</span>
+                                        <span class="price-max">$18.000/m²</span>
+                                    </div>
+                                </div>
+                                <div class="zone-check">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                            </div>
+
+                            <div class="zone-card" data-zone="GBA">
+                                <div class="zone-icon">
+                                    <i class="fas fa-building"></i>
+                                </div>
+                                <div class="zone-content">
+                                    <h4>Gran Buenos Aires</h4>
+                                    <p class="zone-desc">Provincia de Buenos Aires</p>
+                                    <div class="zone-price-range">
+                                        <span class="price-min">$9.000/m²</span>
+                                        <span class="price-sep">a</span>
+                                        <span class="price-max">$14.000/m²</span>
+                                    </div>
+                                </div>
+                                <div class="zone-check">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="btn-next-step" data-next="2">Continuar <i class="fas fa-arrow-right"></i></button>
+                    </div>
+
+                    <!-- Step 2: Job Type Selection -->
+                    <div class="calculator-step" id="step2">
+                        <h3 class="step-title">¿Qué tipo de trabajo es?</h3>
+                        <p class="step-description">Seleccioná la tarea específica</p>
+                        
+                        <div class="job-search">
+                            <div class="search-container">
+                                <i class="fas fa-search"></i>
+                                <input type="text" id="jobSearch" placeholder="Buscar trabajo (ej: interior, exterior, jornal...)" aria-label="Buscar tipo de trabajo">
+                            </div>
+                        </div>
+
+                        <div class="job-selection" id="jobSelection">
+                            <!-- Jobs loaded dynamically -->
+                        </div>
+
+                        <div class="step-actions">
+                            <button class="btn-prev-step" data-prev="1">
+                                <i class="fas fa-arrow-left"></i> Volver
+                            </button>
+                            <button class="btn-next-step" data-next="3">
+                                Continuar <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Square Meters -->
+                    <div class="calculator-step" id="step3">
+                        <h3 class="step-title">¿Cuántos metros cuadrados?</h3>
+                        <p class="step-description">Ingresá la superficie total a pintar</p>
+                        
+                        <div class="meter-input-container">
+                            <div class="meter-input-group">
+                                <input 
+                                    type="number" 
+                                    id="metrosInput"
+                                    min="1"
+                                    max="10000"
+                                    step="0.5"
+                                    value="50"
+                                    placeholder="0"
+                                    aria-label="Metros cuadrados"
+                                    inputmode="decimal"
+                                >
+                                <span class="input-unit">m²</span>
+                            </div>
+                            <div class="meter-help">
+                                <i class="fas fa-info-circle"></i>
+                                Para jornal, dejá el valor en 1
+                            </div>
+                        </div>
+
+                        <div class="quick-meters">
+                            <button class="quick-meter-btn" data-meters="20">20 m²</button>
+                            <button class="quick-meter-btn" data-meters="50">50 m²</button>
+                            <button class="quick-meter-btn" data-meters="100">100 m²</button>
+                            <button class="quick-meter-btn" data-meters="200">200 m²</button>
+                        </div>
+
+                        <div class="step-actions">
+                            <button class="btn-prev-step" data-prev="2">
+                                <i class="fas fa-arrow-left"></i> Volver
+                            </button>
+                            <button class="btn-calculate" id="calculateBtn">
+                                <i class="fas fa-calculator"></i> CALCULAR PRESUPUESTO
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Results -->
+                    <div class="calculator-step" id="step4">
+                        <div class="result-header">
+                            <div class="result-badge">
+                                <i class="fas fa-check-circle"></i> Cálculo Listo
+                            </div>
+                            <h3 class="step-title">Tu rango estimado es:</h3>
+                        </div>
+
+                        <div class="result-card">
+                            <div class="result-main">
+                                <div class="result-amount" id="resultAmount">
+                                    <span class="currency">$</span>
+                                    <span class="amount-min">0</span>
+                                    <span class="amount-separator"> - </span>
+                                    <span class="currency">$</span>
+                                    <span class="amount-max">0</span>
+                                </div>
+                                <div class="result-label">Mano de obra profesional</div>
+                            </div>
+
+                            <div class="result-details">
+                                <div class="detail-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <div>
+                                        <span class="detail-label">Zona:</span>
+                                        <span class="detail-value" id="resultZone">CABA</span>
+                                    </div>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-paint-roller"></i>
+                                    <div>
+                                        <span class="detail-label">Trabajo:</span>
+                                        <span class="detail-value" id="resultJob">Pintura interior</span>
+                                    </div>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-ruler-combined"></i>
+                                    <div>
+                                        <span class="detail-label">Superficie:</span>
+                                        <span class="detail-value" id="resultMeters">50 m²</span>
+                                    </div>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-clock"></i>
+                                    <div>
+                                        <span class="detail-label">Actualizado:</span>
+                                        <span class="detail-value" id="resultDate">Hoy</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Materials Estimation -->
+                        <div class="materials-estimation" id="materialsEstimation">
+                            <h4><i class="fas fa-paint-brush"></i> Materiales estimados</h4>
+                            <div class="materials-list">
+                                <!-- Loaded dynamically -->
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="result-actions">
+                            <button class="result-action-btn" id="saveCalculation">
+                                <i class="fas fa-save"></i> Guardar
+                            </button>
+                            <button class="result-action-btn" id="shareWhatsApp">
+                                <i class="fab fa-whatsapp"></i> Compartir
+                            </button>
+                            <button class="result-action-btn" id="downloadPDF">
+                                <i class="fas fa-file-pdf"></i> PDF
+                            </button>
+                            <button class="result-action-btn" id="newCalculation">
+                                <i class="fas fa-redo"></i> Nuevo
+                            </button>
+                        </div>
+
+                        <div class="result-disclaimer">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <p>
+                                <strong>Importante:</strong> Este es un rango de referencia. El precio final puede variar según complejidad, altura, acceso y detalles específicos. No incluye materiales.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Price Table Section -->
+    <section id="tabla" class="table-section" aria-labelledby="table-title">
+        <div class="container">
+            <div class="section-header">
+                <h2 id="table-title" class="section-title">
+                    <i class="fas fa-table"></i>
+                    Tabla Completa de Precios
+                </h2>
+                <p class="section-subtitle">Todos los rangos actualizados. Hacé clic para usar en la calculadora</p>
+            </div>
+
+            <div class="table-controls">
+                <div class="table-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="tableSearch" placeholder="Buscar en la tabla..." aria-label="Buscar en tabla de precios">
+                </div>
+                <div class="table-filters">
+                    <select id="tableFilterZone" aria-label="Filtrar por zona">
+                        <option value="all">Todas las zonas</option>
+                        <option value="CABA">Solo CABA</option>
+                        <option value="GBA">Solo GBA</option>
+                    </select>
+                    <button class="btn-refresh-prices" id="refreshPrices">
+                        <i class="fas fa-sync-alt"></i> Actualizar
+                    </button>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="price-table" id="priceTable" aria-describedby="table-description">
+                    <caption class="visually-hidden">Tabla de precios de mano de obra para trabajos de pintura</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col" class="col-work">Tipo de Trabajo</th>
+                            <th scope="col" class="col-caba">CABA</th>
+                            <th scope="col" class="col-gba">GBA</th>
+                            <th scope="col" class="col-diff">Diferencia</th>
+                            <th scope="col" class="col-actions">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="priceTableBody">
+                        <!-- Filled dynamically -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="table-footer">
+                <div class="table-info">
+                    <i class="fas fa-info-circle"></i>
+                    <p>Los precios de GBA son aproximadamente un 15% inferiores a los de CABA</p>
+                </div>
+                <div class="table-export">
+                    <button class="btn-export" id="exportTable">
+                        <i class="fas fa-download"></i> Exportar CSV
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- History Section -->
+    <section id="historial" class="history-section" aria-labelledby="history-title">
+        <div class="container">
+            <div class="section-header">
+                <h2 id="history-title" class="section-title">
+                    <i class="fas fa-history"></i>
+                    Historial de Cálculos
+                </h2>
+                <p class="section-subtitle">Tus presupuestos guardados. Accedé desde cualquier dispositivo</p>
+            </div>
+
+            <div class="history-container" id="historyContainer">
+                <div class="history-empty" id="historyEmpty">
+                    <i class="fas fa-calendar-plus"></i>
+                    <h3>No hay cálculos guardados</h3>
+                    <p>Los presupuestos que calcules aparecerán aquí automáticamente</p>
+                    <button class="btn-start-calculating" onclick="scrollToCalculator()">
+                        <i class="fas fa-calculator"></i> Empezar a calcular
+                    </button>
+                </div>
+
+                <div class="history-cards" id="historyCards">
+                    <!-- Filled dynamically -->
+                </div>
+
+                <div class="history-actions">
+                    <button class="btn-clear-history" id="clearHistory">
+                        <i class="fas fa-trash"></i> Limpiar historial
+                    </button>
+                    <button class="btn-export-history" id="exportHistory">
+                        <i class="fas fa-file-export"></i> Exportar todo
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Info Section -->
+    <section id="info" class="info-section" aria-labelledby="info-title">
+        <div class="container">
+            <div class="section-header">
+                <h2 id="info-title" class="section-title">
+                    <i class="fas fa-hands-helping"></i>
+                    Cómo funciona esta herramienta
+                </h2>
+                <p class="section-subtitle">Una plataforma colaborativa creada por y para pintores profesionales</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="feature-title">Precios Reales</h3>
+                    <p class="feature-desc">Actualizados semanalmente con datos de pintores en activo, jefes de obra y arquitectos.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Totalmente Gratuita</h3>
+                    <p class="feature-desc">Sin registros, sin límites de uso. Accedé desde cualquier dispositivo, incluso sin internet.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Privacidad Garantizada</h3>
+                    <p class="feature-desc">Tus cálculos se guardan solo en tu dispositivo. No recopilamos datos personales.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Actualización Constante</h3>
+                    <p class="feature-desc">Los precios se ajustan automáticamente según la inflación y cambios del mercado.</p>
+                </div>
+            </div>
+
+            <div class="info-cta">
+                <div class="cta-card">
+                    <h3>¿Encontraste un precio desactualizado?</h3>
+                    <p>Ayudanos a mantener la herramienta precisa para todos</p>
+                    <button class="btn-report-price" id="reportPriceBtn">
+                        <i class="fas fa-flag"></i> Reportar Precio
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <i class="fas fa-paint-roller"></i>
+                        <span>TuPresupuesto<span class="logo-highlight">AR</span></span>
+                    </div>
+                    <p class="footer-mission">
+                        Para la comunidad de pintores profesionales de Argentina
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" class="social-link" aria-label="Facebook">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="WhatsApp Grupo">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <div class="link-group">
+                        <h4>Herramientas</h4>
+                        <a href="#calculadora">Calculadora</a>
+                        <a href="#tabla">Tabla de Precios</a>
+                        <a href="#historial">Historial</a>
+                    </div>
+                    <div class="link-group">
+                        <h4>Recursos</h4>
+                        <a href="#" id="downloadGuide">Guía de Precios PDF</a>
+                        <a href="#" id="materialCalculator">Calculadora de Materiales</a>
+                        <a href="#" id="contractTemplate">Modelo de Contrato</a>
+                    </div>
+                    <div class="link-group">
+                        <h4>Comunidad</h4>
+                        <a href="#" id="joinCommunity">Unirse al Grupo</a>
+                        <a href="#" id="shareFeedback">Dar Opinión</a>
+                        <a href="#" id="becomeContributor">Ser Colaborador</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="footer-copyright">
+                    &copy; 2024 TuPresupuestoAR. Todos los derechos reservados.
+                    <span class="footer-separator">|</span>
+                    Hecho con <i class="fas fa-heart heart-beat"></i> para pintores
+                </p>
+                <div class="footer-meta">
+                    <span id="lastUpdate">Última actualización: Hoy</span>
+                    <span class="footer-separator">|</span>
+                    <span id="version">v2.0</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <div class="modal-overlay" id="reportModal" aria-hidden="true" role="dialog">
+        <div class="modal-content">
+            <button class="modal-close" id="closeReportModal" aria-label="Cerrar modal">
+                <i class="fas fa-times"></i>
+            </button>
+            <h3 class="modal-title">
+                <i class="fas fa-flag"></i>
+                Reportar Precio Desactualizado
+            </h3>
+            <form id="reportForm" class="report-form">
+                <div class="form-group">
+                    <label for="reportJob">Tipo de Trabajo</label>
+                    <select id="reportJob" required>
+                        <option value="">Seleccionar trabajo</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="reportZone">Zona</label>
+                    <select id="reportZone" required>
+                        <option value="">Seleccionar zona</option>
+                        <option value="CABA">CABA</option>
+                        <option value="GBA">GBA</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="reportPrice">Precio Actual (ARS)</label>
+                    <input type="number" id="reportPrice" placeholder="Ej: 15000" required>
+                </div>
+                <div class="form-group">
+                    <label for="reportComment">Comentario (opcional)</label>
+                    <textarea id="reportComment" placeholder="¿Dónde viste este precio? ¿Alguna observación?" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn-submit-report">
+                    <i class="fas fa-paper-plane"></i> Enviar Reporte
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="Js/app.js" type="module"></script>
+    
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').then(() => {
+                    console.log('Service Worker registrado');
+                });
+            });
+        }
+    </script>
+</body>
+</html>
