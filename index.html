@@ -2,7 +2,8 @@
 <html lang="es-AR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- VIEWPORT CORREGIDO (sin duplicado) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
     <title>TuPresupuestoAR - Calculadora Profesional para Pintores</title>
     <meta name="description" content="Calculadora de presupuestos para pintores en Argentina. Rangos actualizados de mano de obra por m² para CABA y GBA. Herramienta colaborativa para pintores profesionales.">
     <meta name="keywords" content="pintores Argentina, presupuestos pintura, calcular presupuesto, mano de obra pintor, precios pintura CABA, precios pintura GBA">
@@ -15,18 +16,22 @@
     <meta property="og:url" content="https://tupresupuesto.ar">
     <meta property="og:type" content="website">
     
-    <!-- Favicon -->
+    <!-- Favicon (COMENTADO HASTA QUE LO TENGAS) -->
+    <!--
     <link rel="icon" href="img/favicon.ico" type="image/x-icon">
     <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+    -->
     
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="./Css/style.css">
+    <!-- Stylesheets - RUTA CORREGIDA -->
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- PWA Manifest -->
+    <!-- PWA Manifest (COMENTADO TEMPORALMENTE) -->
+    <!--
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#2563eb">
+    -->
     
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -64,7 +69,8 @@
         <div class="container header-container">
             <div class="logo-container">
                 <a href="#hero" class="logo-link">
-                    <img src="/img/logo-pintura.png" alt="TuPresupuestoAR - Logo" class="site-logo" width="60" height="60">
+                    <!-- RUTA DE IMAGEN CORREGIDA -->
+                    <img src="img/logo-pintura.png" alt="TuPresupuestoAR - Logo" class="site-logo" width="60" height="60">
                     <div class="logo-text">
                         <h1 class="logo-title">TuPresupuesto<span class="logo-highlight">AR</span></h1>
                         <p class="logo-subtitle">Para pintores que saben lo que valen</p>
@@ -656,17 +662,57 @@
 
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="Js/app.js" type="module"></script>
+    <script src="js/app.js"></script>
     
-    <!-- Service Worker Registration -->
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js').then(() => {
-                    console.log('Service Worker registrado');
+<!-- Service Worker Registration - VERSIÓN MEJORADA -->
+<script>
+    // Solo registrar el Service Worker en producción
+    const isLocalhost = window.location.hostname === 'localhost' || 
+                        window.location.hostname === '127.0.0.1';
+    
+    if ('serviceWorker' in navigator && !isLocalhost) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('./sw.js')
+                .then(registration => {
+                    console.log('Service Worker registrado con éxito:', registration.scope);
+                })
+                .catch(error => {
+                    console.log('Error registrando Service Worker:', error);
                 });
+        });
+    } else if (isLocalhost) {
+        console.log('Modo desarrollo: Service Worker deshabilitado');
+        
+        // Limpiar cualquier Service Worker viejo
+        navigator.serviceWorker.getRegistrations().then(registrations => {
+            for (const registration of registrations) {
+                registration.unregister();
+                console.log('Service Worker antiguo desregistrado');
+            }
+        });
+    }
+</script>
+    
+    <!-- Código para limpiar Service Workers viejos -->
+    <script>
+        // Limpiar cualquier Service Worker viejo
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                for(let registration of registrations) {
+                    registration.unregister();
+                }
             });
         }
+        
+        // Ocultar loading overlay
+        window.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                document.getElementById('loadingOverlay').style.opacity = '0';
+                setTimeout(function() {
+                    document.getElementById('loadingOverlay').style.display = 'none';
+                }, 300);
+            }, 500);
+        });
     </script>
 </body>
 </html>

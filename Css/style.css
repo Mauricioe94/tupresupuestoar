@@ -807,7 +807,6 @@ a:hover {
 }
 
 .progress-steps::before {
-    content: '';
     position: absolute;
     top: 24px;
     left: 100px;
@@ -927,14 +926,21 @@ a:hover {
     margin-bottom: var(--space-xl);
 }
 
-/* Zone Selection */
+/* ==========================================================================
+   ZONE SELECTION - FIXED VERSION
+   ========================================================================== */
+
+/* Zone Selection - Desktop */
 .zone-selection {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Cambiado de 300px a 280px */
     gap: var(--space-lg);
     margin-bottom: var(--space-xl);
+    width: 100%;
+    overflow: hidden; /* Previene desborde */
 }
 
+/* Zone Card Base */
 .zone-card {
     background: white;
     border: 2px solid var(--gray-200);
@@ -946,6 +952,10 @@ a:hover {
     cursor: pointer;
     transition: all var(--transition);
     position: relative;
+    max-width: 100%; /* CRÍTICO: No exceder el ancho del contenedor */
+    box-sizing: border-box; /* Incluye padding en el ancho total */
+    word-wrap: break-word; /* Rompe palabras largas */
+    overflow-wrap: break-word;
 }
 
 [data-theme="dark"] .zone-card {
@@ -969,6 +979,7 @@ a:hover {
     border-color: var(--primary-500);
 }
 
+/* Zone Icon */
 .zone-icon {
     width: 64px;
     height: 64px;
@@ -977,6 +988,7 @@ a:hover {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0; /* IMPORTANTE: No se encoje */
 }
 
 .zone-icon i {
@@ -984,9 +996,17 @@ a:hover {
     color: var(--primary-600);
 }
 
+/* Zone Content */
+.zone-content {
+    flex: 1;
+    min-width: 0; /* CRÍTICO: Permite que se reduzca el contenido */
+}
+
 .zone-content h4 {
     margin-bottom: var(--space-xs);
     color: var(--gray-900);
+    word-break: break-word; /* Rompe títulos largos */
+    overflow-wrap: break-word;
 }
 
 [data-theme="dark"] .zone-content h4 {
@@ -997,6 +1017,8 @@ a:hover {
     color: var(--gray-500);
     font-size: 0.875rem;
     margin-bottom: var(--space-sm);
+    line-height: 1.4;
+    word-break: break-word;
 }
 
 .zone-price-range {
@@ -1005,13 +1027,16 @@ a:hover {
     gap: var(--space-xs);
     font-size: 0.875rem;
     color: var(--gray-600);
+    flex-wrap: wrap; /* Permite múltiples líneas si es necesario */
 }
 
 .price-min, .price-max {
     font-weight: 700;
     color: var(--primary-600);
+    white-space: nowrap; /* Mantiene precio en una línea */
 }
 
+/* Zone Check */
 .zone-check {
     position: absolute;
     top: -12px;
@@ -1032,6 +1057,126 @@ a:hover {
 .zone-card.selected .zone-check {
     opacity: 1;
     transform: scale(1);
+}
+
+/* ==========================================================================
+   MEDIA QUERIES PARA RESPONSIVE
+   ========================================================================== */
+
+/* Tablet (768px) */
+@media (max-width: 768px) {
+    .zone-selection {
+        grid-template-columns: 1fr; /* Una sola columna */
+        gap: var(--space-md);
+        padding: 0 0.5rem;
+    }
+    
+    .zone-card {
+        padding: var(--space-md);
+        gap: var(--space-md);
+        max-width: 100%;
+        margin: 0 auto;
+    }
+    
+    .zone-icon {
+        width: 56px;
+        height: 56px;
+    }
+    
+    .zone-icon i {
+        font-size: 1.75rem;
+    }
+}
+
+/* Mobile (480px) */
+@media (max-width: 480px) {
+    .zone-selection {
+        gap: var(--space-sm);
+        padding: 0 0.25rem;
+        margin-bottom: var(--space-lg);
+    }
+    
+    .zone-card {
+        padding: var(--space-sm);
+        gap: var(--space-sm);
+        flex-wrap: wrap; /* Permite reorganización */
+        justify-content: center;
+        text-align: center;
+    }
+    
+    .zone-icon {
+        width: 48px;
+        height: 48px;
+        margin: 0 auto;
+    }
+
+    
+    .zone-price-range {
+        justify-content: center;
+    }
+}
+
+/* Mobile Muy Pequeño (350px) - SOLUCIÓN DEFINITIVA */
+@media (max-width: 350px) {
+    .zone-selection {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+        padding: 0 0.5rem; /* Padding lateral seguro */
+        margin-bottom: 1rem;
+    }
+    
+    .zone-card {
+        padding: 0.75rem 0.5rem; /* Padding reducido */
+        gap: 0.5rem;
+        flex-direction: column; /* Icono arriba, contenido abajo */
+        align-items: center;
+        text-align: center;
+        border-width: 1px; /* Borde más fino */
+        width: 100%;
+        min-width: 0; /* Permite reducirse */
+    }
+    
+    .zone-icon {
+        width: 40px;
+        height: 40px;
+        margin-bottom: 0.25rem;
+    }
+    
+    .zone-icon i {
+        font-size: 1.25rem;
+    }
+    
+    .zone-content h4 {
+        font-size: 0.9rem;
+        margin-bottom: 0.125rem;
+        line-height: 1.2;
+    }
+    
+    .zone-desc {
+        font-size: 0.75rem;
+        margin-bottom: 0.25rem;
+        line-height: 1.3;
+    }
+    
+    .zone-price-range {
+        font-size: 0.75rem;
+        flex-direction: column; /* Precios en columna */
+        gap: 0.125rem;
+        justify-content: center;
+    }
+    
+    .price-min, .price-max {
+        font-size: 0.8rem;
+        white-space: normal; /* Permite que se rompa */
+    }
+    
+    .zone-check {
+        width: 24px;
+        height: 24px;
+        top: -8px;
+        right: -8px;
+        font-size: 0.75rem;
+    }
 }
 
 /* Job Selection */
@@ -2756,5 +2901,54 @@ a:hover {
     
     .history-card-content {
         grid-template-columns: 1fr;
+    }
+}
+/* Mobile Muy Pequeño (350px) - NUEVO */
+@media (max-width: 350px) {
+    /* ========== COPIA EL CÓDIGO DE 350px COMPLETO AQUÍ ========== */
+    
+    /* Inicio del código de 350px */
+    html {
+        font-size: 14px;
+    }
+    
+    .header-container {
+        padding: 0.5rem;
+        height: 70px;
+    }
+    
+    .site-logo {
+        width: 40px;
+        height: 40px;
+    }
+    
+    /* ... todo el resto ... */
+    
+    /* Fin del código de 350px */
+    input, select, textarea, button {
+        font-size: 16px !important;
+        min-height: 44px;
+    }
+}
+
+/* Orientación Horizontal en móviles pequeños */
+@media (max-width: 350px) and (orientation: landscape) {
+    .header-container {
+        height: 60px;
+    }
+    
+    .mobile-nav {
+        top: 60px;
+        height: calc(100vh - 60px);
+    }
+    
+    .hero-stats {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    
+    .zone-selection,
+    .job-selection {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
