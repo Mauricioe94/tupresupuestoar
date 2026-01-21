@@ -751,3 +751,22 @@ function setupBasicFunctionality() {
         });
     }
 }
+// Comunicación con Service Worker
+function updateServiceWorker() {
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.ready.then(registration => {
+      registration.active.postMessage({ type: 'SKIP_WAITING' });
+    });
+  }
+}
+
+// Escuchar mensajes del Service Worker
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.addEventListener('message', event => {
+    if (event.data.type === 'SW_UPDATED') {
+      showToast(`Nueva versión disponible (${event.data.version})`, 'success');
+      // Opcional: botón para recargar
+      setTimeout(() => location.reload(), 3000);
+    }
+  });
+}
