@@ -256,7 +256,95 @@
                         </div>
 
                         <div class="job-selection" id="jobSelection">
-                            <!-- Jobs loaded dynamically -->
+                            <!-- Pintura Interior - usando clase job-card -->
+                            <div class="job-card" data-job="pintura-interior" data-job-type="interior">
+                                <div class="job-icon">
+                                    <i class="fas fa-home"></i>
+                                </div>
+                                <div class="job-content">
+                                    <h4 class="job-title">Pintura interior</h4>
+                                    <p class="job-description">Paredes interiores con pintura látex</p>
+                                    <span class="job-price">CABA: $12.000 - $18.000/m²</span>
+                                </div>
+                                <div class="selection-check">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                            </div>
+
+                            <!-- Pintura Exterior -->
+                            <div class="job-card" data-job="pintura-exterior" data-job-type="exterior">
+                                <div class="job-icon">
+                                    <i class="fas fa-building"></i>
+                                </div>
+                                <div class="job-content">
+                                    <h4 class="job-title">Pintura exterior</h4>
+                                    <p class="job-description">Fachadas con pintura antihongos</p>
+                                    <span class="job-price">CABA: $14.000 - $17.000/m²</span>
+                                </div>
+                                <div class="selection-check">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                            </div>
+
+                            <!-- Barniz o Laca -->
+                            <div class="job-card" data-job="barniz-laca" data-job-type="barniz">
+                                <div class="job-icon">
+                                    <i class="fas fa-tree"></i>
+                                </div>
+                                <div class="job-content">
+                                    <h4 class="job-title">Barniz o Laca</h4>
+                                    <p class="job-description">Puertas de madera, pisos y portones</p>
+                                    <span class="job-price">CABA: $13.000 - $17.000/m²</span>
+                                </div>
+                                <div class="selection-check">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                            </div>
+
+                            <!-- Jornal de pintor -->
+                            <div class="job-card" data-job="jornal-pintor" data-job-type="jornal">
+                                <div class="job-icon">
+                                    <i class="fas fa-user-hard-hat"></i>
+                                </div>
+                                <div class="job-content">
+                                    <h4 class="job-title">Jornal de pintor</h4>
+                                    <p class="job-description">Día completo de trabajo (8 horas)</p>
+                                    <span class="job-price">CABA: $50.000 - $70.000/día</span>
+                                </div>
+                                <div class="selection-check">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                            </div>
+
+                            <!-- Revestimiento plástico -->
+                            <div class="job-card" data-job="revestimiento-plastico" data-job-type="revestimiento">
+                                <div class="job-icon">
+                                    <i class="fas fa-trowel"></i>
+                                </div>
+                                <div class="job-content">
+                                    <h4 class="job-title">Revestimiento plástico</h4>
+                                    <p class="job-description">Interior y exterior (aplicado con llana)</p>
+                                    <span class="job-price">CABA: $18.000 - $25.000/m²</span>
+                                </div>
+                                <div class="selection-check">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                            </div>
+
+                            <!-- Sintéticos -->
+                            <div class="job-card" data-job="sinteticos" data-job-type="exterior">
+                                <div class="job-icon">
+                                    <i class="fas fa-industry"></i>
+                                </div>
+                                <div class="job-content">
+                                    <h4 class="job-title">Sintéticos</h4>
+                                    <p class="job-description">Hierros, chapas y galvanizados</p>
+                                    <span class="job-price">CABA: $15.000 - $20.000/m²</span>
+                                </div>
+                                <div class="selection-check">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="step-actions">
@@ -692,27 +780,6 @@
         });
     }
 </script>
-    
-    <!-- Código para limpiar Service Workers viejos -->
-    <script>
-        // Limpiar cualquier Service Worker viejo
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.getRegistrations().then(function(registrations) {
-                for(let registration of registrations) {
-                    registration.unregister();
-                }
-            });
-        }
-        
-        // Ocultar loading overlay
-        window.addEventListener('DOMContentLoaded', function() {
-            setTimeout(function() {
-                document.getElementById('loadingOverlay').style.opacity = '0';
-                setTimeout(function() {
-                    document.getElementById('loadingOverlay').style.display = 'none';
-                }, 300);
-            }, 500);
-        });
-    </script>
+
 </body>
 </html>

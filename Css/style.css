@@ -933,11 +933,11 @@ a:hover {
 /* Zone Selection - Desktop */
 .zone-selection {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Cambiado de 300px a 280px */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: var(--space-lg);
     margin-bottom: var(--space-xl);
     width: 100%;
-    overflow: hidden; /* Previene desborde */
+    overflow: hidden;
 }
 
 /* Zone Card Base */
@@ -952,9 +952,9 @@ a:hover {
     cursor: pointer;
     transition: all var(--transition);
     position: relative;
-    max-width: 100%; /* CRÍTICO: No exceder el ancho del contenedor */
-    box-sizing: border-box; /* Incluye padding en el ancho total */
-    word-wrap: break-word; /* Rompe palabras largas */
+    max-width: 100%;
+    box-sizing: border-box;
+    word-wrap: break-word;
     overflow-wrap: break-word;
 }
 
@@ -988,7 +988,7 @@ a:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0; /* IMPORTANTE: No se encoje */
+    flex-shrink: 0;
 }
 
 .zone-icon i {
@@ -999,13 +999,13 @@ a:hover {
 /* Zone Content */
 .zone-content {
     flex: 1;
-    min-width: 0; /* CRÍTICO: Permite que se reduzca el contenido */
+    min-width: 0;
 }
 
 .zone-content h4 {
     margin-bottom: var(--space-xs);
     color: var(--gray-900);
-    word-break: break-word; /* Rompe títulos largos */
+    word-break: break-word;
     overflow-wrap: break-word;
 }
 
@@ -1027,13 +1027,13 @@ a:hover {
     gap: var(--space-xs);
     font-size: 0.875rem;
     color: var(--gray-600);
-    flex-wrap: wrap; /* Permite múltiples líneas si es necesario */
+    flex-wrap: wrap;
 }
 
 .price-min, .price-max {
     font-weight: 700;
     color: var(--primary-600);
-    white-space: nowrap; /* Mantiene precio en una línea */
+    white-space: nowrap;
 }
 
 /* Zone Check */
@@ -1060,252 +1060,212 @@ a:hover {
 }
 
 /* ==========================================================================
-   MEDIA QUERIES PARA RESPONSIVE
+   JOB SELECTION - ESTILOS CORREGIDOS
    ========================================================================== */
 
-/* Tablet (768px) */
-@media (max-width: 768px) {
-    .zone-selection {
-        grid-template-columns: 1fr; /* Una sola columna */
-        gap: var(--space-md);
-        padding: 0 0.5rem;
-    }
-    
-    .zone-card {
-        padding: var(--space-md);
-        gap: var(--space-md);
-        max-width: 100%;
-        margin: 0 auto;
-    }
-    
-    .zone-icon {
-        width: 56px;
-        height: 56px;
-    }
-    
-    .zone-icon i {
-        font-size: 1.75rem;
-    }
-}
-
-/* Mobile (480px) */
-@media (max-width: 480px) {
-    .zone-selection {
-        gap: var(--space-sm);
-        padding: 0 0.25rem;
-        margin-bottom: var(--space-lg);
-    }
-    
-    .zone-card {
-        padding: var(--space-sm);
-        gap: var(--space-sm);
-        flex-wrap: wrap; /* Permite reorganización */
-        justify-content: center;
-        text-align: center;
-    }
-    
-    .zone-icon {
-        width: 48px;
-        height: 48px;
-        margin: 0 auto;
-    }
-
-    
-    .zone-price-range {
-        justify-content: center;
-    }
-}
-
-/* Mobile Muy Pequeño (350px) - SOLUCIÓN DEFINITIVA */
-@media (max-width: 350px) {
-    .zone-selection {
-        grid-template-columns: 1fr;
-        gap: 0.75rem;
-        padding: 0 0.5rem; /* Padding lateral seguro */
-        margin-bottom: 1rem;
-    }
-    
-    .zone-card {
-        padding: 0.75rem 0.5rem; /* Padding reducido */
-        gap: 0.5rem;
-        flex-direction: column; /* Icono arriba, contenido abajo */
-        align-items: center;
-        text-align: center;
-        border-width: 1px; /* Borde más fino */
-        width: 100%;
-        min-width: 0; /* Permite reducirse */
-    }
-    
-    .zone-icon {
-        width: 40px;
-        height: 40px;
-        margin-bottom: 0.25rem;
-    }
-    
-    .zone-icon i {
-        font-size: 1.25rem;
-    }
-    
-    .zone-content h4 {
-        font-size: 0.9rem;
-        margin-bottom: 0.125rem;
-        line-height: 1.2;
-    }
-    
-    .zone-desc {
-        font-size: 0.75rem;
-        margin-bottom: 0.25rem;
-        line-height: 1.3;
-    }
-    
-    .zone-price-range {
-        font-size: 0.75rem;
-        flex-direction: column; /* Precios en columna */
-        gap: 0.125rem;
-        justify-content: center;
-    }
-    
-    .price-min, .price-max {
-        font-size: 0.8rem;
-        white-space: normal; /* Permite que se rompa */
-    }
-    
-    .zone-check {
-        width: 24px;
-        height: 24px;
-        top: -8px;
-        right: -8px;
-        font-size: 0.75rem;
-    }
-}
-
-/* Job Selection */
-.job-search {
-    margin-bottom: var(--space-lg);
-}
-
-.search-container {
-    position: relative;
-    max-width: 500px;
-    margin: 0 auto;
-}
-
-.search-container i {
-    position: absolute;
-    left: var(--space-lg);
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--gray-400);
-    font-size: 1.125rem;
-}
-
-.search-container input {
-    width: 100%;
-    padding: var(--space-md) var(--space-lg) var(--space-md) 3.5rem;
-    border: 2px solid var(--gray-300);
-    border-radius: var(--radius);
-    font-size: 1rem;
-    font-family: var(--font-body);
-    background: white;
-    color: var(--gray-900);
-    transition: all var(--transition-fast);
-}
-
-[data-theme="dark"] .search-container input {
-    background: var(--gray-800);
-    border-color: var(--gray-700);
-    color: var(--gray-100);
-}
-
-.search-container input:focus {
-    outline: none;
-    border-color: var(--primary-500);
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
-}
-
+/* Contenedor principal - SIN SCROLL */
 .job-selection {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: var(--space-md);
-    max-height: 300px;
-    overflow-y: auto;
-    padding: var(--space-sm);
-    margin-bottom: var(--space-xl);
+    margin: var(--space-xl) 0;
+    overflow: hidden; /* Sin scroll */
+    padding: 4px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
+/* Tarjetas de trabajo */
 .job-card {
-    background: white;
+    background: linear-gradient(135deg, var(--gray-50) 0%, var(--gray-100) 100%);
     border: 2px solid var(--gray-200);
     border-radius: var(--radius);
-    padding: var(--space-md);
+    padding: var(--space-lg);
     cursor: pointer;
-    transition: all var(--transition-fast);
+    transition: all var(--transition);
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-md);
+    min-height: 120px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 [data-theme="dark"] .job-card {
-    background: var(--gray-800);
+    background: linear-gradient(135deg, var(--gray-800) 0%, var(--gray-900) 100%);
     border-color: var(--gray-700);
 }
 
 .job-card:hover {
-    border-color: var(--primary-300);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-400);
 }
 
+/* Estado seleccionado */
 .job-card.selected {
+    border-width: 3px;
     border-color: var(--primary-500);
-    background: var(--primary-50);
+    animation: pulseSelected 0.5s ease-out;
 }
 
-[data-theme="dark"] .job-card.selected {
-    background: var(--primary-900);
+/* Colores específicos para cada tipo cuando está seleccionado */
+.job-card[data-job-type*="interior"].selected {
+    border-color: var(--success);
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, var(--gray-50) 100%);
 }
 
-.job-header {
-    display: flex;
-    align-items: center;
-    gap: var(--space-sm);
-    margin-bottom: var(--space-xs);
+.job-card[data-job-type*="exterior"].selected {
+    border-color: var(--primary-500);
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, var(--gray-50) 100%);
 }
 
+.job-card[data-job-type*="jornal"].selected {
+    border-color: var(--warning);
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, var(--gray-50) 100%);
+}
+
+.job-card[data-job-type*="barniz"].selected,
+.job-card[data-job-type*="laca"].selected {
+    border-color: #8b5cf6;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, var(--gray-50) 100%);
+}
+
+.job-card[data-job-type*="revestimiento"].selected {
+    border-color: #ec4899;
+    background: linear-gradient(135deg, rgba(236, 72, 153, 0.1) 0%, var(--gray-50) 100%);
+}
+
+/* Iconos */
 .job-icon {
-    width: 40px;
-    height: 40px;
-    background: var(--primary-100);
-    border-radius: var(--radius-sm);
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius);
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 1.25rem;
+    flex-shrink: 0;
+    transition: all var(--transition);
+    background-color: var(--primary-500);
+    color: white;
 }
 
-.job-icon i {
-    color: var(--primary-600);
-    font-size: 1.25rem;
+.job-card:hover .job-icon {
+    transform: scale(1.1);
+}
+
+/* Colores de iconos según tipo */
+.job-card[data-job-type*="interior"] .job-icon {
+    background-color: var(--success);
+}
+
+.job-card[data-job-type*="exterior"] .job-icon {
+    background-color: var(--primary-500);
+}
+
+.job-card[data-job-type*="jornal"] .job-icon {
+    background-color: var(--warning);
+}
+
+.job-card[data-job-type*="barniz"] .job-icon,
+.job-card[data-job-type*="laca"] .job-icon {
+    background-color: #8b5cf6;
+}
+
+.job-card[data-job-type*="revestimiento"] .job-icon {
+    background-color: #ec4899;
+}
+
+/* Contenido */
+.job-content {
+    flex: 1;
+    min-width: 0;
 }
 
 .job-title {
+    font-size: 1.125rem;
     font-weight: 600;
     color: var(--gray-900);
-    font-size: 1rem;
-    margin: 0;
+    margin-bottom: var(--space-xs);
+    line-height: 1.3;
 }
 
 [data-theme="dark"] .job-title {
     color: var(--gray-100);
 }
 
-.job-price {
+.job-description {
     font-size: 0.875rem;
-    color: var(--primary-600);
-    font-weight: 700;
-    margin-top: var(--space-xs);
+    color: var(--gray-600);
+    margin-bottom: var(--space-sm);
+    line-height: 1.4;
 }
 
-.job-desc {
+[data-theme="dark"] .job-description {
+    color: var(--gray-400);
+}
+
+.job-price {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--success);
+    background: rgba(16, 185, 129, 0.1);
+    padding: 4px 12px;
+    border-radius: 20px;
+    display: inline-block;
+}
+
+/* Check de selección */
+.selection-check {
+    position: absolute;
+    top: var(--space-md);
+    right: var(--space-md);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--primary-500);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 0.75rem;
+    opacity: 0;
+    transform: scale(0);
+    transition: all var(--transition);
+}
+
+.job-card.selected .selection-check {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Animación de selección */
+@keyframes pulseSelected {
+    0% {
+        box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(37, 99, 235, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(37, 99, 235, 0);
+    }
+}
+
+/* Sin resultados */
+.job-no-results {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: var(--space-xl);
     color: var(--gray-500);
-    margin-top: var(--space-xs);
+}
+
+.job-no-results i {
+    font-size: 3rem;
+    margin-bottom: var(--space-md);
+    color: var(--gray-300);
 }
 
 /* Meter Input */
@@ -2903,11 +2863,59 @@ a:hover {
         grid-template-columns: 1fr;
     }
 }
-/* Mobile Muy Pequeño (350px) - NUEVO */
-@media (max-width: 350px) {
-    /* ========== COPIA EL CÓDIGO DE 350px COMPLETO AQUÍ ========== */
+
+/* Media Queries para zone-selection (mantenidas del original) */
+@media (max-width: 768px) {
+    .zone-selection {
+        grid-template-columns: 1fr;
+        gap: var(--space-md);
+        padding: 0 0.5rem;
+    }
     
-    /* Inicio del código de 350px */
+    .zone-card {
+        padding: var(--space-md);
+        gap: var(--space-md);
+        max-width: 100%;
+        margin: 0 auto;
+    }
+    
+    .zone-icon {
+        width: 56px;
+        height: 56px;
+    }
+    
+    .zone-icon i {
+        font-size: 1.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .zone-selection {
+        gap: var(--space-sm);
+        padding: 0 0.25rem;
+        margin-bottom: var(--space-lg);
+    }
+    
+    .zone-card {
+        padding: var(--space-sm);
+        gap: var(--space-sm);
+        flex-wrap: wrap;
+        justify-content: center;
+        text-align: center;
+    }
+    
+    .zone-icon {
+        width: 48px;
+        height: 48px;
+        margin: 0 auto;
+    }
+    
+    .zone-price-range {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 350px) {
     html {
         font-size: 14px;
     }
@@ -2922,16 +2930,12 @@ a:hover {
         height: 40px;
     }
     
-    /* ... todo el resto ... */
-    
-    /* Fin del código de 350px */
     input, select, textarea, button {
         font-size: 16px !important;
         min-height: 44px;
     }
 }
 
-/* Orientación Horizontal en móviles pequeños */
 @media (max-width: 350px) and (orientation: landscape) {
     .header-container {
         height: 60px;
